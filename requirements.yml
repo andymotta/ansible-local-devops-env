@@ -6,8 +6,8 @@
 - src: https://github.com/andymotta/ansible-role-terraform
   name: terraform
 
-# - src: https://github.com/andymotta/ansible-role-conky
-#   name: conky
+- src: https://github.com/andymotta/ansible-role-vagrant
+  name: vagrant
 
 - src: https://github.com/andymotta/ansible-role-docker
   name: docker

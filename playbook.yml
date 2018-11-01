@@ -126,8 +126,8 @@
 # These get loaded first so might need to include_role instead
   roles:
     - { role: vscode, tags: vscode }
-    # - { role: conky, config_owner: 'andy', tags: conky } # mess around with config before removing never
     - { role: docker, become: yes, tags: docker }
     - { role: kubectl, tags: kubectl }
     - { role: minikube, tags: minikube }
     - { role: terraform, become: true, tags: terraform }
+    - { role: vagrant, become: true, tags: vagrant}
