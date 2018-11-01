@@ -1,0 +1,16 @@
+---
+apt_packages:
+  - git
+  - ansible
+  - shellcheck
+  - terminator
+  - zsh
+  - tree 
+  - vim
+  - jq
+  - xclip
+  - tmux
+  - python-pip
+  - virtualbox
+
+  #- openssh-server ?

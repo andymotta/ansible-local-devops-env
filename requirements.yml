@@ -1,0 +1,19 @@
+---
+
+- src: https://github.com/andymotta/vscode-ansible
+  name: vscode
+
+- src: https://github.com/andymotta/ansible-role-terraform
+  name: terraform
+
+# - src: https://github.com/andymotta/ansible-role-conky
+#   name: conky
+
+- src: https://github.com/andymotta/ansible-role-docker
+  name: docker
+
+- src: https://github.com/andrewrothstein/ansible-kubectl
+  name: kubectl
+
+- src: https://github.com/gantsign/ansible_role_minikube
+  name: minikube

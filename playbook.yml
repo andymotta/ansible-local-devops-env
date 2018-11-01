@@ -1,0 +1,133 @@
+- hosts: localhost
+  vars_files:
+    - apt_packages.yml
+    - pip_packages.yml
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    user: "{{ lookup('env', 'USER') }}"
+    docker_users:
+      - "{{ user }}"
+
+  tasks:
+    - name: Install a list of packages
+      apt:
+        name: "{{ apt_packages }}"
+        state: latest
+      become: true
+      tags: apt
+
+    - name: Get latest release of ripgrep
+      uri:                                                               
+        url: https://api.github.com/repos/BurntSushi/ripgrep/releases/latest
+        return_content: true                                             
+      register: json_reponse         
+
+    - debug: msg="{{ json_reponse.json.assets[8].browser_download_url }}"                                    
+
+    # get_url not downloading entire file
+    - name: "Download ripgrep"
+      command: wget "{{ json_reponse.json.assets[8].browser_download_url }}" -O /tmp/ripgrep_latest.deb
+
+    - name: "Install ripgrep"
+      apt:
+        deb: /tmp/ripgrep_latest.deb
+      become: true
+
+    - name: "Download google-chrome"
+      get_url:
+        url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+        dest: /tmp/google-chrome-stable.deb
+
+    - name: "Install google-chrome"
+      apt:
+        deb: /tmp/google-chrome-stable.deb
+      become: true
+
+    - name: "Install oh-my-zsh"
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      args:
+        executable: /bin/bash
+      ignore_errors: true # ignore chsh PAM auth error
+
+    - name: "Install oh-my-zsh plugins and theme"
+      git:
+        repo: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+      with_items:
+        - { url: "https://github.com/zsh-users/zsh-syntax-highlighting.git", dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" }
+        - { url: "https://github.com/zsh-users/zsh-autosuggestions", dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"  }
+        - { url: "https://github.com/junegunn/fzf.git", dest: "~/.fzf" }
+        - { url: "https://github.com/bhilburn/powerlevel9k.git", dest: "~/.oh-my-zsh/custom/themes/powerlevel9k" }
+
+    - name: "Install fzf"
+      shell: ~/.fzf/install
+
+    - name: "Configure zshrc"
+      template: 
+        src: templates/zshrc
+        dest: "{{ home }}/.zshrc"
+      tags: zshrc
+
+    - name: "Download Powerline Fonts"
+      git:
+        repo: https://github.com/powerline/fonts.git
+        dest: /tmp/fonts
+        depth: 1
+      register: plf
+      tags: fonts
+
+    - name: "Install Powerline Fonts"
+      shell: /tmp/fonts/install.sh
+      when: plf.changed
+      tags: fonts
+
+    - name: Create dir for terminator config
+      file: path=~/.config/terminator state=directory
+
+    - name: "Configure terminator"
+      copy:
+        src: files/terminator-config
+        dest: ~/.config/terminator/config
+      tags: terminator
+
+    - name: "Configure Git"
+      copy:
+        src: "{{ item.src }}" 
+        dest: "{{ item.dest }}"
+      with_items:
+        - { src: files/git-config, dest: ~/.gitconfig }
+        - { src: files/git-ignore, dest: ~/.gitignore }
+      tags: git
+        
+    - name: "Get the ultimate vim configuration"
+      git:
+        repo: https://github.com/amix/vimrc.git
+        dest: ~/.vim_runtime
+        depth: 1
+      register: uvim
+
+    - name: "Install the ultimate vim configuration"
+      shell: sh ~/.vim_runtime/install_basic_vimrc.sh
+      when: uvim.changed
+
+    - name: Install Pip packages
+      pip:
+        name: "{{ item.name | default(item) }}"
+        state: "{{ item.state | default('present') }}"
+        version: "{{ item.version | default(omit) }}"
+        executable: "{{ item.executable | default(omit) }}"
+        extra_args: "{{ item.extra_args | default(omit) }}"
+      with_items: "{{ pip_packages }}"
+      tags: pip
+
+    - name: Set Wallpaper so we know we're done!
+      command: gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/'Mr. Lee.jpg'
+
+# These get loaded first so might need to include_role instead
+  roles:
+    - { role: vscode, tags: vscode }
+    # - { role: conky, config_owner: 'andy', tags: conky } # mess around with config before removing never
+    - { role: docker, become: yes, tags: docker }
+    - { role: kubectl, tags: kubectl }
+    - { role: minikube, tags: minikube }
+    - { role: terraform, become: true, tags: terraform }
