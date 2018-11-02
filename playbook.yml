@@ -81,8 +81,14 @@
       when: plf.changed
       tags: fonts
 
-    - name: Create dir for terminator config
-      file: path=~/.config/terminator state=directory
+    - name: Create directories
+      file:
+        path: "{{ item.path }}"
+        state: directory
+      with_items:
+        - { path: ~/.config/terminator }
+        - { path: ~/git }
+      tags: dirs
 
     - name: "Configure terminator"
       copy:
@@ -110,24 +116,16 @@
       shell: sh ~/.vim_runtime/install_basic_vimrc.sh
       when: uvim.changed
 
-    - name: Install Pip packages
-      pip:
-        name: "{{ item.name | default(item) }}"
-        state: "{{ item.state | default('present') }}"
-        version: "{{ item.version | default(omit) }}"
-        executable: "{{ item.executable | default(omit) }}"
-        extra_args: "{{ item.extra_args | default(omit) }}"
-      with_items: "{{ pip_packages }}"
-      tags: pip
-
     - name: Set Wallpaper so we know we're done!
       command: gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/'Mr. Lee.jpg'
 
 # These get loaded first so might need to include_role instead
   roles:
+    - { role: pip, tags: pip }
     - { role: vscode, tags: vscode }
     - { role: docker, become: yes, tags: docker }
     - { role: kubectl, tags: kubectl }
     - { role: minikube, tags: minikube }
     - { role: terraform, become: true, tags: terraform }
-    - { role: vagrant, become: true, tags: vagrant}
+    - { role: vagrant, become: true, tags: vagrant }
+    - { role: golang, sansible_golang_tarball: go1.11.1.linux-amd64.tar.gz, sansible_golang_tarball_checksum: 2871270d8ff0c8c69f161aaae42f9f28739855ff5c5204752a8d92a1c9f63993, sansible_golang_workspace_user: andy, tags: golang }

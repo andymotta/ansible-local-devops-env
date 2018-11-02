@@ -1,5 +1,7 @@
 ---
-
+- src: https://github.com/andymotta/ansible-role-pip
+  name: pip
+  
 - src: https://github.com/andymotta/vscode-ansible
   name: vscode
 
@@ -17,3 +19,6 @@
 
 - src: https://github.com/gantsign/ansible_role_minikube
   name: minikube
+
+- src: https://github.com/sansible/golang
+  name: golang

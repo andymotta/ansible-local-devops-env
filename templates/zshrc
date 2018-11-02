@@ -21,3 +21,9 @@ export EDITOR=vim
 alias pbcopy="xclip -selection clipboard"
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+
+alias gbdo="git push origin --delete"
+
+export GOPATH=/home/andy/go
+export PATH=$GOPATH/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
