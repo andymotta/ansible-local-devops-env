@@ -6,6 +6,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_CONTEXT_TEMPLATE=%n
 
 plugins=(
+  aws
   git
   zsh-syntax-highlighting
   zsh-autosuggestions

@@ -11,6 +11,5 @@ apt_packages:
   - xclip
   - tmux
   - python-pip
-  - virtualbox
 
   #- openssh-server ?
