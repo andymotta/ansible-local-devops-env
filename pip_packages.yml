@@ -1,5 +1,0 @@
----
-pip_install_packages:
-  - name: awscli
-    state: latest # present/absent/latest, default: present
-    extra_args: --user

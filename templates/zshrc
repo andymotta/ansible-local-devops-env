@@ -7,7 +7,11 @@ POWERLEVEL9K_CONTEXT_TEMPLATE=%n
 
 plugins=(
   aws
+  docker
+  docker-compose
+  docker-machine
   git
+  kubectl
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
@@ -19,12 +23,13 @@ export EDITOR=vim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+alias open="xdg-open"
 alias pbcopy="xclip -selection clipboard"
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 
 alias gbdo="git push origin --delete"
 
-export GOPATH=/home/andy/go
+export GOPATH="{{ home }}/go"
 export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin

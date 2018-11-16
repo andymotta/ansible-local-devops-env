@@ -4,7 +4,7 @@
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.85
+    background_darkness = 0.90
     background_image = None
     background_type = transparent
     cursor_shape = underline

@@ -1,7 +1,6 @@
 - hosts: localhost
   vars_files:
-    - apt_packages.yml
-    - pip_packages.yml
+    - vars/all.yml
   vars:
     home: "{{ lookup('env', 'HOME') }}"
     user: "{{ lookup('env', 'USER') }}"
@@ -115,6 +114,18 @@
     - name: "Install the ultimate vim configuration"
       shell: sh ~/.vim_runtime/install_basic_vimrc.sh
       when: uvim.changed
+
+    - name: "Create a 2048-bit SSH key for {{ user }}"
+      user:
+        name: "{{ user }}"
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: ~/.ssh/id_rsa
+      tags: keypair
+
+    - name: Download and install the aws-iam-authenticator binary
+      command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
+      tags: eks
 
     - name: Set Wallpaper so we know we're done!
       command: gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/'Mr. Lee.jpg'

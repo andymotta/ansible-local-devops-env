@@ -1,0 +1,29 @@
+---
+apt_packages:
+  - git
+  - ansible
+  - shellcheck
+  - terminator
+  - zsh
+  - tree 
+  - vim
+  - jq
+  - xclip
+  - tmux
+  - python-pip
+
+pip_install_packages:
+  - name: awscli
+    state: latest # present/absent/latest, default: present
+    extra_args: --user
+
+extensions:
+    - vscoss.vscode-ansible
+    - eamodio.gitlens
+    # - ms-vscode.Go
+    - ms-python.python
+    - timonwong.shellcheck
+    - k3a.theme-dark-plus-contrast
+    # - mauve.terraform
+    # - peterjausovec.vscode-docker
+    - ivory-lab.jenkinsfile-support
