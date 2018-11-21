@@ -25,6 +25,7 @@ export EDITOR=vim
 
 alias open="xdg-open"
 alias pbcopy="xclip -selection clipboard"
+alias conjur="docker-compose run conjur"
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 

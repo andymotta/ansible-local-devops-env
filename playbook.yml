@@ -7,6 +7,15 @@
     docker_users:
       - "{{ user }}"
 
+  vars_prompt:
+  - name: "github_user"
+    prompt: "What is your GitHub user name?"
+    private: no
+  - name: "github_email"
+    prompt: "What is your GitHub e-mail?"
+    private: no
+
+
   tasks:
     - name: Install a list of packages
       apt:
@@ -100,9 +109,14 @@
         src: "{{ item.src }}" 
         dest: "{{ item.dest }}"
       with_items:
-        - { src: files/git-config, dest: ~/.gitconfig }
         - { src: files/git-ignore, dest: ~/.gitignore }
       tags: git
+
+    - name: "Copy gitconfig"
+      template: 
+        src: templates/git-config
+        dest: ~/.gitconfig
+      tags: gitconfig
         
     - name: "Get the ultimate vim configuration"
       git:
@@ -126,6 +140,10 @@
     - name: Download and install the aws-iam-authenticator binary
       command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
       tags: eks
+
+    - name: Go get Kompose
+      command: go get -u github.com/kubernetes/kompose
+      tags: kompose
 
     - name: Set Wallpaper so we know we're done!
       command: gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/'Mr. Lee.jpg'
