@@ -129,6 +129,11 @@
       shell: sh ~/.vim_runtime/install_basic_vimrc.sh
       when: uvim.changed
 
+    - name: Install pip packages
+      include_role:
+        name: pip
+      tags: pip
+
     - name: "Create a 2048-bit SSH key for {{ user }}"
       user:
         name: "{{ user }}"
@@ -137,9 +142,14 @@
         ssh_key_file: ~/.ssh/id_rsa
       tags: keypair
 
-    - name: Download and install the aws-iam-authenticator binary
-      command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
-      tags: eks
+# go is not yet available to the current shell
+    # - name: Download and install the aws-iam-authenticator binary
+    #   command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
+    #   tags: eks
+
+    # - name: Go get Kompose
+    #   command: go get -u github.com/kubernetes/kompose
+    #   tags: kompose
 
     - name: Go get Kompose
       command: go get -u github.com/kubernetes/kompose
@@ -150,7 +160,6 @@
 
 # These get loaded first so might need to include_role instead
   roles:
-    - { role: pip, tags: pip }
     - { role: vscode, tags: vscode }
     - { role: docker, become: yes, tags: docker }
     - { role: kubectl, tags: kubectl }
