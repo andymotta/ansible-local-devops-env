@@ -1,5 +1,7 @@
 [global_config]
 [keybindings]
+  paste = <Control>v
+  copy = <Control>c
 [layouts]
 [plugins]
 [profiles]
@@ -7,6 +9,7 @@
     background_darkness = 0.90
     background_image = None
     background_type = transparent
+    copy_on_selection = True
     cursor_shape = underline
     font = Source Code Pro for Powerline 10
     icon_bell = False
