@@ -151,6 +151,10 @@
     #   command: go get -u github.com/kubernetes/kompose
     #   tags: kompose
 
+    - name: Go get etcdctl
+      command: go get -u github.com/coreos/etcd/etcdctl
+      tags: etcdctl
+
     # - name: Download diff-so-fancy # maybe later
     #   get_url:
     #     url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
