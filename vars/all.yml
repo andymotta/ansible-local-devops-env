@@ -24,5 +24,6 @@ extensions:
     # - ms-python.python
     - timonwong.shellcheck
     - k3a.theme-dark-plus-contrast
-    # - mauve.terraform
+    - mauve.terraform
     - peterjausovec.vscode-docker
+    - ivory-lab.jenkinsfile-support
