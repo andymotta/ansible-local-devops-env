@@ -103,6 +103,11 @@
         src: files/terminator-config
         dest: ~/.config/terminator/config
       tags: terminator
+    - name: "Configure Weechat"
+      copy:
+        src: files/irc.conf
+        dest: ~/.weechat/irc.conf
+      tags: weechat
 
     - name: "Configure Git"
       copy:

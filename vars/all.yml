@@ -11,6 +11,7 @@ apt_packages:
   - xclip
   - tmux
   - python-pip
+  - weechat
 
 pip_install_packages:
   - name: awscli
