@@ -17,6 +17,8 @@ pip_install_packages:
   - name: awscli
     state: latest # present/absent/latest, default: present
     extra_args: --user
+  - name: boto3
+    state: latest # present/absent/latest, default: present
 
 extensions:
     - vscoss.vscode-ansible
