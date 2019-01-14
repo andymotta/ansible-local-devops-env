@@ -18,7 +18,11 @@ pip_install_packages:
     state: latest # present/absent/latest, default: present
     extra_args: --user
   - name: boto3
-    state: latest # present/absent/latest, default: present
+    state: latest 
+  - name: pylint
+    state: latest # <2.0.0
+    extra_args: --user
+
 
 extensions:
     - vscoss.vscode-ansible
