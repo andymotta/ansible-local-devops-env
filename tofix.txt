@@ -29,11 +29,11 @@ TASK [vscode : List Inatalled VSCode extensions] *******************************
 ok: [localhost]
 
 TASK [vscode : Install Required VSCode extensions] *****************************************************************************************************************************************************************************
-skipping: [localhost] => (item=vscoss.vscode-ansible) 
-skipping: [localhost] => (item=eamodio.gitlens) 
-skipping: [localhost] => (item=ms-vscode.Go) 
-skipping: [localhost] => (item=ms-python.python) 
-skipping: [localhost] => (item=timonwong.shellcheck) 
+skipping: [localhost] => (item=vscoss.vscode-ansible)
+skipping: [localhost] => (item=eamodio.gitlens)
+skipping: [localhost] => (item=ms-vscode.Go)
+skipping: [localhost] => (item=ms-python.python)
+skipping: [localhost] => (item=timonwong.shellcheck)
 
 TASK [docker : include_tasks] **************************************************************************************************************************************************************************************************
 skipping: [localhost]
@@ -203,5 +203,6 @@ TASK [Set Wallpaper so we know we're done!] ************************************
 changed: [localhost]
 
 PLAY RECAP *********************************************************************************************************************************************************************************************************************
-localhost                  : ok=50   changed=10   unreachable=0    failed=0   
+localhost                  : ok=50   changed=10   unreachable=0    failed=0
 
+vscode-docker is always installing?
