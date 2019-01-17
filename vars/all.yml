@@ -27,7 +27,7 @@ pip_install_packages:
 extensions:
     - vscoss.vscode-ansible
     - eamodio.gitlens
-    # - ms-vscode.Go
+    - ms-vscode.Go
     - ms-python.python
     - timonwong.shellcheck
     - k3a.theme-dark-plus-contrast
