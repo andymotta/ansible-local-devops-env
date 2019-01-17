@@ -25,3 +25,6 @@
 
 - src: https://github.com/gantsign/ansible_role_helm
   name: helm
+
+- src: https://github.com/andymotta/ansible-role-consul
+  name: consul

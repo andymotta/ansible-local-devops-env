@@ -152,8 +152,8 @@
     #   command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
     #   tags: eks
 
-    # - name: Go get Kompose
-    #   command: go get -u github.com/kubernetes/kompose
+    # - name: Go get Komposec
+    #   command: go get -u gc
     #   tags: kompose
 
     # - name: Download diff-so-fancy # maybe later
@@ -176,3 +176,4 @@
     - { role: vagrant, become: true, tags: vagrant }
     - { role: golang, sansible_golang_tarball: go1.11.1.linux-amd64.tar.gz, sansible_golang_tarball_checksum: 2871270d8ff0c8c69f161aaae42f9f28739855ff5c5204752a8d92a1c9f63993, sansible_golang_workspace_user: "{{ user }}", tags: golang }
     - { role: helm, tags: helm }
+    - { role: consul, become: true, tags: consul }
