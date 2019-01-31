@@ -17,7 +17,7 @@ Manual install steps for VirtualBox
 deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bionic contrib # add to /etc/apt/sources.list
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install virtualbox-5.2
+sudo apt-get install virtualbox-6.0
 ```
 
 If this an existing system with git and Ansible installed:

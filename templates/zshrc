@@ -11,6 +11,7 @@ plugins=(
   git
   helm
   kubectl
+  minikube
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
