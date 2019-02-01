@@ -12,6 +12,7 @@ apt_packages:
   - tmux
   - python-pip
   - weechat
+  - socat
 
 pip_install_packages:
   - name: awscli
@@ -34,3 +35,4 @@ extensions:
     - mauve.terraform
     - peterjausovec.vscode-docker
     - ivory-lab.jenkinsfile-support
+    - marcostazi.vs-code-vagrantfile
