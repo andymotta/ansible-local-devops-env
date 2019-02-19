@@ -35,6 +35,8 @@ export GOPATH="{{ home }}/go"
 export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 
+export PATH=$PATH:~/.jx/bin
+
 function hurryup () { 
     until ssh -o ConnectTimeout=2 "$1"@"$2"
         do sleep 1

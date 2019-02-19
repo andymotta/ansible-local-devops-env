@@ -41,6 +41,31 @@
         deb: /tmp/ripgrep_latest.deb
       become: true
 
+    - name: Get latest release of jx
+      uri:                                                               
+        url: https://api.github.com/repos/jenkins-x/jx/releases/latest
+        return_content: true                                             
+      register: json_reponse      
+      tags: jx   
+
+    - debug: msg="{{ json_reponse.json.assets[2].browser_download_url }}"                                    
+
+    - name: "Download jx"
+      command: wget "{{ json_reponse.json.assets[2].browser_download_url }}" -O /tmp/jx-linux-amd64.tar.gz
+      tags: jx
+
+    - name: ensure jx directory exists
+      file:
+        path: "{{ home }}/.jx/bin"
+        state: directory
+      tags: jx
+      
+    - name: Install jx
+      unarchive:
+        src: /tmp/jx-linux-amd64.tar.gz
+        dest: "{{ home }}/.jx/bin"
+      tags: jx
+
     - name: "Download google-chrome"
       get_url:
         url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
