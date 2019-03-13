@@ -1,0 +1,34 @@
+    - name: Get latest release of kubectx
+      uri:                                                               
+        url: https://api.github.com/repos/ahmetb/kubectx/releases/latest
+        return_content: true                                             
+      register: json_reponse      
+      tags: kctx
+
+    - name: "Download kubectx"
+      command: wget "{{ json_reponse.json.zipball_url }}" -O /tmp/kubectx.zip
+      tags: kctx
+      
+    - name: Unzip kubectx # dest too random
+      unarchive:
+        src: /tmp/kubectx.zip
+        dest: "/tmp/kubectx/"
+      tags: kctx
+  
+    - name: Install kubectx
+      file:
+        src: /tmp/kubectx/kubectx
+        dest: /usr/local/bin/kubectx
+      tags: kctx
+
+    - name: Ensure Oh-my-zsh completions dir
+      file:
+        path: "{{ home }}/.oh-my-zsh/completions"
+        state: directory
+      tags: kctx
+
+    - name: Install kubectx autocompletions
+      get_url:
+        url: "https://raw.githubusercontent.com/ahmetb/kubectx/master/completion/kubectx.zsh"
+        dest: "{{ home }}/.oh-my-zsh/completions/_kubectx.zsh"
+      tags: kctx

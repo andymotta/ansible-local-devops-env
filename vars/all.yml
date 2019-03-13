@@ -11,13 +11,14 @@ apt_packages:
   - xclip
   - tmux
   - python-pip
+  - python3-pip
   - socat
 
-pip_install_packages:
+pip_install_packages: # Need same packages for pip3
   - name: awscli
     state: latest # present/absent/latest, default: present
     extra_args: --user
-  - name: boto3
+  - name: virtualenv
     state: latest 
   - name: pylint
     state: latest # <2.0.0
