@@ -172,9 +172,13 @@
     #   command: go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
     #   tags: eks
 
-    # - name: Go get Komposec
-    #   command: go get -u gc
+    # - name: Go get Kompose
+    #   command: go get -u github.com/kubernetes/kompose
     #   tags: kompose
+
+    # - name: Go get etcdctl
+    #   command: go get -u github.com/coreos/etcd/etcdctl
+    #   tags: etcdctl
 
     # - name: Download diff-so-fancy # maybe later
     #   get_url:
